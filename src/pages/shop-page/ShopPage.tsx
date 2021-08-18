@@ -14,7 +14,7 @@ type Collections = {
     }[]
 }[]
 
-const Shop = () => {
+const ShopPage = () => {
     const [collections, setCollections] = useState<Collections>(SHOP_DATA);
 
     return (
@@ -28,4 +28,4 @@ const Shop = () => {
     );
 }
 
-export default Shop;
+export default ShopPage;

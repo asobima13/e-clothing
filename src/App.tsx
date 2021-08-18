@@ -1,6 +1,7 @@
 import './App.scss'
-import HomePage from './pages/homepage/HomePage'
-import Shop from './pages/shop/Shop'
+import HomePage from './pages/home-page/HomePage'
+import ShopPage from './pages/shop-page/ShopPage'
+import Header from './components/header/Header'
 import {
   BrowserRouter as Router,
   Route,
@@ -10,12 +11,13 @@ import {
 function App() {
   return (
     <Router>
+      <Header />
       <Switch>
         <Route exact path='/'>
           <HomePage />
         </Route>
         <Route path='/shop'>
-          <Shop />
+          <ShopPage />
         </Route>
       </Switch>
     </Router>
