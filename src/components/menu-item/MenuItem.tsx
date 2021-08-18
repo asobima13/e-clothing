@@ -1,14 +1,17 @@
 import './MenuItem.scss'
+import {  RouteComponentProps, withRouter } from 'react-router-dom'
+// import { RouteComponentProps } from 'react-router'
 
 interface DirectoryProps {
     title: string,
     imageUrl: string,
-    size: string | undefined
+    size?: string | undefined,
+    linkUrl: string
 }
 
-const MenuItem= ({ title, imageUrl, size }: DirectoryProps) => {
+const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }: DirectoryProps & RouteComponentProps) => {
     return (
-        <div className={`${size} menu-item`}>
+        <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)} >
             <div className="background-image" style={{ backgroundImage: `url(${imageUrl})` }} />
             <div className="content">
                 <h1 className="title">{title.toUpperCase()}</h1>
@@ -18,4 +21,4 @@ const MenuItem= ({ title, imageUrl, size }: DirectoryProps) => {
     )
 }
 
-export default MenuItem;
+export default withRouter(MenuItem);
