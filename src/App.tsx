@@ -1,5 +1,6 @@
 import './App.scss'
 import HomePage from './pages/homepage/HomePage'
+import Shop from './pages/shop/Shop'
 import {
   BrowserRouter as Router,
   Route,
@@ -12,6 +13,9 @@ function App() {
       <Switch>
         <Route exact path='/'>
           <HomePage />
+        </Route>
+        <Route path='/shop'>
+          <Shop />
         </Route>
       </Switch>
     </Router>

@@ -1,6 +1,5 @@
 import './MenuItem.scss'
 import {  RouteComponentProps, withRouter } from 'react-router-dom'
-// import { RouteComponentProps } from 'react-router'
 
 interface DirectoryProps {
     title: string,
