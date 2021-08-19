@@ -3,7 +3,7 @@ import HomePage from './pages/home-page/HomePage'
 import ShopPage from './pages/shop-page/ShopPage'
 import Header from './components/header/Header'
 import SignInAndUpPage from './pages/sign-in-and-up-page/SignInAndUpPage'
-import { auth } from './firebase/firebase.utils'
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
@@ -12,9 +12,10 @@ import {
 } from 'react-router-dom'
 
 type CurrentUser = {
-  name: string | null,
-  email: string | null,
-  photoUrl: string | null
+  id: string,
+  displayName: string,
+  email: string,
+  createdAt: string
 } | null
 
 function App() {
@@ -22,20 +23,30 @@ function App() {
 
   useEffect(() => {
     
-    auth.onAuthStateChanged((user) => {
-      user && setCurrentUser({
-        name: user?.displayName,
-        email: user?.email,
-        photoUrl: user?.photoURL
-      })
-      // displayName
-      // email
-      // photoUrl
-      // emailVerified: bool
+    auth.onAuthStateChanged( async (userAuth) => {
+
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef?.onSnapshot(snapshot => {
+          const { displayName, email, createdAt }: any = snapshot.data();
+          
+          setCurrentUser({
+            id: snapshot.id,
+            displayName: displayName,
+            email: email,
+            createdAt: createdAt
+          })
+
+        })
+      } else {
+        setCurrentUser(userAuth)
+      }
+      
     })
     
   }, []);
-
+  
   return (
     <Router>
       <Header currentUser={currentUser} setCurrentUser={setCurrentUser} />

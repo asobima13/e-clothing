@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import { auth } from '../../firebase/firebase.utils'
 
 type CurrentUser = {
-    name: string | null,
-    email: string | null,
-    photoUrl: string | null
+    id: string,
+    displayName: string,
+    email: string,
+    createdAt: string
   } | null
 
 interface AppProps {
-    currentUser: CurrentUser
+    currentUser: CurrentUser;
     setCurrentUser: (currentUser: CurrentUser) => void;
 }
 
