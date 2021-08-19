@@ -3,7 +3,7 @@ import './CustomButton.scss'
 interface SignInProps {
     children: any;
     isGoogleSignIn?: any;
-    type?: "submit";
+    type: "submit" | "button";
     onClick?: () => void;
 }
 
