@@ -1,7 +1,25 @@
 import './Header.scss'
 import { Link } from 'react-router-dom'
+import { auth } from '../../firebase/firebase.utils'
 
-const Header = () => {
+type CurrentUser = {
+    name: string | null,
+    email: string | null,
+    photoUrl: string | null
+  } | null
+
+interface AppProps {
+    currentUser: CurrentUser
+    setCurrentUser: (currentUser: CurrentUser) => void;
+}
+
+const Header = ( {currentUser, setCurrentUser}: AppProps ) => {
+
+    const handleSignOut = () => {
+        auth.signOut()
+        setCurrentUser(null)
+    }
+
     return (
         <div className="header">
             <Link to="/" className="logo-container">
@@ -14,6 +32,15 @@ const Header = () => {
                 <Link className="option" to="/contact">
                     CONTACT
                 </Link>
+                {
+                    currentUser ?
+                    <div className="option" onClick={handleSignOut}>
+                        SIGN OUT
+                    </div> :
+                    <Link className="option" to="/sign-in">
+                        SIGN IN
+                    </Link>
+                }
             </div>
         </div>
     );

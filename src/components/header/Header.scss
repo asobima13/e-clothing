@@ -11,6 +11,7 @@
     justify-content: center;
     height: 50%;
     padding: 20px 0;
+    box-sizing: content-box;
 
     img {
       height: 100%;
@@ -27,6 +28,7 @@
 
     .option {
       padding: 10px 15px;
+      cursor: pointer;
     }
   }
 }
