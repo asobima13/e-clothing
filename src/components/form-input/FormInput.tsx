@@ -2,11 +2,11 @@ import React from 'react';
 import './FormInput.scss'
 
 interface FormInputProps {
-    name: string | undefined;
-    type: string | undefined;
+    name: string;
+    type: string;
     required: boolean;
     value: string;
-    label: string | undefined;
+    label?: string;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

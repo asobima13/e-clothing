@@ -1,7 +1,8 @@
 import './SignUp.scss'
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+// import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { useActions } from '../../store/hooks' 
 import React, { useState } from 'react';
 
 type UserState = {
@@ -20,30 +21,27 @@ const SignUp = () => {
     });
 
     const { displayName, email, password, confirmPassword } = userState;
+    const { doSignup } = useActions();
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
-        if (password !== confirmPassword) {
-            alert("Passwords don't match!");
-            return;
-        }
 
-        try {
-            const { user }: any = await auth.createUserWithEmailAndPassword(email, password)
-
-            await createUserProfileDocument(user, {displayName} )
-
+        const resetState = () => {
             setUserState({
                 displayName: '',
                 email: '',
                 password: '',
                 confirmPassword: ''
             })
-            
-        } catch (err) {
-            console.error(err)
         }
+
+        doSignup(userState, resetState)
+        // setUserState({
+        //     displayName: '',
+        //     email: '',
+        //     password: '',
+        //     confirmPassword: ''
+        // })
 
     }
 

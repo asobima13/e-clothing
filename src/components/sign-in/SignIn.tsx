@@ -2,7 +2,8 @@ import './SignIn.scss'
 import { useState } from 'react'
 import FormInput from '../form-input/FormInput'
 import CustomButton from '../custom-button/CustomButton'
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils'
+import { useActions } from '../../store/hooks'
+import { useHistory } from 'react-router-dom'
 
 type Form = {
     email: string,
@@ -15,16 +16,22 @@ const SignIn = () => {
         password: ''
     });
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const { doSignin, doSigninWithGoogle } = useActions();
+    const history = useHistory();
+
+    const pushPage = () => {
+        history.push("/")
+    }
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        try {
-            await auth.signInWithEmailAndPassword(form.email, form.password);
-            setForm({ email: '', password: '' })
-        } catch (err) {
-            console.log(err)
-        }
+        doSignin(form, pushPage)
+    }
 
+    const handleSigninWithGoogle = () => {
+        doSigninWithGoogle(pushPage)
+        setForm({ email: '', password: ''})
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +52,7 @@ const SignIn = () => {
                 <FormInput name="password" type="password" value={form.password} handleChange={handleChange} label="password" required/>
                 <div className="buttons">
                     <CustomButton type="submit">Sign In</CustomButton>
-                    <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>{' '}Sign In with Google{' '}</CustomButton>
+                    <CustomButton type="button" onClick={handleSigninWithGoogle} isGoogleSignIn>{' '}Sign In with Google{' '}</CustomButton>
                 </div>
             </form>
         </div>

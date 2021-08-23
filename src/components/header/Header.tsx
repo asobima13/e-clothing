@@ -1,24 +1,15 @@
 import './Header.scss'
 import { Link } from 'react-router-dom'
-import { auth } from '../../firebase/firebase.utils'
 
-type CurrentUser = {
-    id: string,
-    displayName: string,
-    email: string,
-    createdAt: string
-  } | null
+import { useActions, useTypedSelector } from '../../store/hooks'
 
-interface AppProps {
-    currentUser: CurrentUser;
-    setCurrentUser: (currentUser: CurrentUser) => void;
-}
+const Header = () => {
 
-const Header = ( {currentUser, setCurrentUser}: AppProps ) => {
+    const { currentUser } = useTypedSelector(state => state.user)
+    const { doSignout } = useActions();
 
     const handleSignOut = () => {
-        auth.signOut()
-        setCurrentUser(null)
+        doSignout();
     }
 
     return (
@@ -36,7 +27,7 @@ const Header = ( {currentUser, setCurrentUser}: AppProps ) => {
                 {
                     currentUser ?
                     <div className="option" onClick={handleSignOut}>
-                        SIGN OUT
+                        {`SIGN OUT (${currentUser.displayName})`}
                     </div> :
                     <Link className="option" to="/sign-in">
                         SIGN IN

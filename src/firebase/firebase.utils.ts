@@ -22,7 +22,7 @@ const config = {
     measurementId: REACT_APP_MEASUREMENT_ID
 };
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth: any, additionalData?: any) => {
     if (!userAuth) return;
 
     const userRef = firestore.doc(`users/${userAuth.uid}`)
