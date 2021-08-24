@@ -1,4 +1,4 @@
-import { Action } from '../actions'
+import { UserAction } from '../actions/userAction'
 
 type InitialState = {
     currentUser: {
@@ -6,26 +6,34 @@ type InitialState = {
         displayName: string,
         email: string,
         createdAt: number
-    } | null
+    } | null,
+    error: {
+        message: string | null,
+        location: string | null
+    }
 }
 
 const initialState = {
-    currentUser: null
+    currentUser: null,
+    error: {
+        message: null,
+        location: null
+    }
 }
 
 const reducer = (
     state: InitialState = initialState,
-    action: Action
+    action: UserAction
 ) => {
     switch (action.type) {
         case 'AUTH':
-            return { ...state, currentUser: action.payload }
+            return { ...state, currentUser: action.payload };
         case 'SIGNIN':
-            return state;
+            return { ...state, error: action.payload};
         case 'SIGNUP':
-            return state;
+            return { ...state, error: action.payload};
         case 'SIGNINWITHGOOGLE':
-            return state;
+            return { ...state, error: action.payload};
         case 'SIGNOUT':
             return { ...state, currentUser: action.payload};
         default:

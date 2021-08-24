@@ -42,7 +42,7 @@ export const createUserProfileDocument = async (userAuth: any, additionalData?: 
             })
         }
         catch (err) {
-            console.log('error creating user', err.message)
+            console.log('Error creating user', err.message)
         }
     }
 

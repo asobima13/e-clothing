@@ -6,10 +6,12 @@ import { actionCreators } from '../../store';
 import { useSelector, TypedUseSelectorHook } from 'react-redux';
 import { RootState } from '../../store';
 
+// useActions variable
 export const useActions = () => {
     const dispatch = useDispatch();
     
     return bindActionCreators(actionCreators, dispatch);
 }
 
+// useTypedSelector variable
 export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;

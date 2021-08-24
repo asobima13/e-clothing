@@ -12,19 +12,16 @@ import {
 } from 'react-router-dom'
 
 import { useActions, useTypedSelector } from './store/hooks'
-// eslint-disable-next-line react-hooks/exhaustive-deps
 
 function App() {
   
   const { doAuth } = useActions();
+  const { currentUser } = useTypedSelector(state => state.user)
 
   useEffect(() => {
-    // doAuth()
-    const unsubscribe = () => doAuth();
-    return () => {
-      unsubscribe();
-    }
-  }, [doAuth])
+    doAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Router>
@@ -36,10 +33,10 @@ function App() {
         <Route path="/shop">
           <ShopPage />
         </Route>
-        <Route path="/sign-in">
-          <SignInAndUpPage />
+        <Route exact path="/sign-in">
+          {currentUser ? (<Redirect to="/" />) : (<SignInAndUpPage />)}
         </Route>
-        <Route path="*">404 NOT FOUND</Route>
+        <Route path="*"><h1>404: PAGE NOT FOUND</h1></Route>
       </Switch>
     </Router>
   );

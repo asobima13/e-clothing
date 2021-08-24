@@ -2,7 +2,7 @@ import './SignUp.scss'
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
 // import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
-import { useActions } from '../../store/hooks' 
+import { useActions, useTypedSelector } from '../../store/hooks' 
 import React, { useState } from 'react';
 
 type UserState = {
@@ -22,6 +22,7 @@ const SignUp = () => {
 
     const { displayName, email, password, confirmPassword } = userState;
     const { doSignup } = useActions();
+    const { error } = useTypedSelector(state => state.user)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -36,12 +37,6 @@ const SignUp = () => {
         }
 
         doSignup(userState, resetState)
-        // setUserState({
-        //     displayName: '',
-        //     email: '',
-        //     password: '',
-        //     confirmPassword: ''
-        // })
 
     }
 
@@ -64,6 +59,7 @@ const SignUp = () => {
                 <FormInput type='password' name='confirmPassword' value={confirmPassword} handleChange={handleChange} label='Confirm Password' required />
                 <CustomButton type='submit'>SIGN UP</CustomButton>
             </form>
+            {error.location === 'signup' && (<span style={{color: 'red', marginTop: '20px'}}>{error.message}</span>)}
         </div>
     );
 }

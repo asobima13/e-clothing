@@ -2,8 +2,7 @@ import './SignIn.scss'
 import { useState } from 'react'
 import FormInput from '../form-input/FormInput'
 import CustomButton from '../custom-button/CustomButton'
-import { useActions } from '../../store/hooks'
-import { useHistory } from 'react-router-dom'
+import { useActions, useTypedSelector } from '../../store/hooks'
 
 type Form = {
     email: string,
@@ -17,21 +16,16 @@ const SignIn = () => {
     });
 
     const { doSignin, doSigninWithGoogle } = useActions();
-    const history = useHistory();
-
-    const pushPage = () => {
-        history.push("/")
-    }
+    const { error } = useTypedSelector(state => state.user)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        doSignin(form, pushPage)
+        doSignin(form)
     }
 
     const handleSigninWithGoogle = () => {
-        doSigninWithGoogle(pushPage)
-        setForm({ email: '', password: ''})
+        doSigninWithGoogle()
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,10 +45,11 @@ const SignIn = () => {
                 <FormInput name="email" type="email" value={form.email} handleChange={handleChange} label="email" required/>
                 <FormInput name="password" type="password" value={form.password} handleChange={handleChange} label="password" required/>
                 <div className="buttons">
-                    <CustomButton type="submit">Sign In</CustomButton>
+                    <CustomButton type="submit" >Sign In</CustomButton>
                     <CustomButton type="button" onClick={handleSigninWithGoogle} isGoogleSignIn>{' '}Sign In with Google{' '}</CustomButton>
                 </div>
             </form>
+            {error.location === 'signin' && (<span style={{color: 'red', marginTop: '20px'}}>{error.message}</span>)}
         </div>
     );
 }
