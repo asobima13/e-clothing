@@ -1,19 +1,33 @@
 import './CollectionItem.scss'
+import CustomButton from '../custom-button/CustomButton'
+import { useActions } from '../../store/hooks'
 
 interface CollectionPreviewProps {
-    name: string;
-    imageUrl: string;
-    price: number;
+    item: {
+        name: string;
+        imageUrl: string;
+        price: number;
+    }
 }
 
-const CollectionItem = ({ name, imageUrl, price}: CollectionPreviewProps) => {
+const CollectionItem = ({ item }: CollectionPreviewProps) => {
+
+    const { addItem } = useActions();
+
     return (
         <div className="collection-item">
-            <div className="image" style={{backgroundImage: `url(${imageUrl})`}}></div>
+            <div className="image" style={{backgroundImage: `url(${item.imageUrl})`}}></div>
             <div className="collection-footer">
-                <span className="name">{name}</span>
-                <span className="price">{price}</span>
+                <span className="name">{item.name}</span>
+                <span className="price">{item.price}</span>
             </div>
+            <CustomButton
+                inverted
+                type="button"
+                onClick={() => addItem(item)}
+            >
+                Add to cart
+            </CustomButton>
         </div>
     );
 }
