@@ -16,11 +16,12 @@ import { useActions, useTypedSelector } from './store/hooks'
 
 function App() {
   
-  const { doAuth } = useActions();
-  const { currentUser } = useTypedSelector(state => state.user)
+  const { doAuth, toggleHidden } = useActions();
+  const { user: {currentUser}, cart: {hidden} } = useTypedSelector(state => state)
 
   useEffect(() => {
     doAuth()
+    !hidden && toggleHidden()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

@@ -8,9 +8,9 @@ interface DirectoryProps {
     linkUrl: string
 }
 
-const MenuItem = ({ title, imageUrl, size, linkUrl, history, match }: DirectoryProps & RouteComponentProps) => {
+const MenuItem = ({ title, imageUrl, size, linkUrl, history }: DirectoryProps & RouteComponentProps) => {
     return (
-        <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)} >
+        <div className={`${size} menu-item`} onClick={() => history.push(`${linkUrl}`)} >
             <div className="background-image" style={{ backgroundImage: `url(${imageUrl})` }} />
             <div className="content">
                 <h1 className="title">{title.toUpperCase()}</h1>
