@@ -1,4 +1,4 @@
-type AddItemType = {
+type ItemType = {
     name: string;
     imageUrl: string;
     price: number;
@@ -11,9 +11,21 @@ interface ToggleHidden {
 
 interface AddItem {
     type: 'ADD_ITEM',
-    payload: AddItemType
+    payload: ItemType
+}
+
+interface RemoveItem {
+    type: 'REMOVE_ITEM',
+    payload: ItemType
+}
+
+interface ClearItemFromCart {
+    type: 'CLEAR_ITEM_FROM_CART',
+    payload: any
 }
 
 export type CartAction =
     ToggleHidden |
-    AddItem
+    AddItem |
+    RemoveItem |
+    ClearItemFromCart

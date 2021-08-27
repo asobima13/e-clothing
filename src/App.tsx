@@ -3,6 +3,7 @@ import HomePage from './pages/home-page/HomePage'
 import ShopPage from './pages/shop-page/ShopPage'
 import Header from './components/header/Header'
 import SignInAndUpPage from './pages/sign-in-and-up-page/SignInAndUpPage'
+import CheckoutPage from './pages/checkout-page/CheckoutPage'
 import { useEffect } from 'react'
 import {
   BrowserRouter as Router,
@@ -27,12 +28,9 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route path="/shop">
-          <ShopPage />
-        </Route>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
         <Route exact path="/sign-in">
           {currentUser ? (<Redirect to="/" />) : (<SignInAndUpPage />)}
         </Route>

@@ -4,6 +4,7 @@ import { useActions } from '../../store/hooks'
 
 interface CollectionPreviewProps {
     item: {
+        id: number;
         name: string;
         imageUrl: string;
         price: number;

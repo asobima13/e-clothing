@@ -9,7 +9,9 @@ const CartIcon = () => {
     return (
         <div className="cart-icon" onClick={toggleHidden}>
             <img src="assets/shopping-bag.svg" className="shopping-icon" alt=""/>
-            <span className="item-count">{cartItems.length}</span>
+            <span className="item-count">{
+                cartItems.reduce((accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity, 0)
+            }</span>
         </div>
     )
 }
