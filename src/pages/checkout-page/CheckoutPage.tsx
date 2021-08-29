@@ -26,6 +26,15 @@ const CheckoutPage = () => {
                 <span>Total: IDR {priceWithCommas(totalPrice * 1000)}</span>
             </div>
             <PaymentButton price={totalPrice}/>
+            <div className="test-warning">
+                <code>
+                    <h2>Please use Bank Mandiri Credit Card credentials below to simulate payment with credit card.</h2>
+                    <p>Card Number: 4811 1111 1111 1114</p>
+                    <p>EXP (MM/YY): 02/25</p>
+                    <p>CVV: 123</p>
+                    <p>OTP: 112233</p>
+                </code>
+            </div>
         </div>
     )
 }

@@ -60,9 +60,7 @@ const PaymentButton = ({ price }: PaymentButtonProps) => {
     }
 
     return (
-        <button onClick={handleClick}>
-            Proceed to payment
-        </button>
+        <button onClick={handleClick}>Pay Now</button>
     )
 }
 
