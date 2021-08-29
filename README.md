@@ -1,4 +1,5 @@
-# E-Clothing (ReactJS, Redux, Typescript, Firebase, Midtrans (Most common payment gateway in Indonesia))
+# E-Clothing
+# ReactJS, Redux, Typescript, Firebase, Midtrans (Most common payment gateway in Indonesia)
 
 E-Clothing is a Progressive Web App e-commerce app.<br/>
 This PWA is built with firebase so it can use sign in with google or just the usual email and password other than storing some data.<br/>
