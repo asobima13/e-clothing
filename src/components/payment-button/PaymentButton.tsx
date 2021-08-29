@@ -1,5 +1,5 @@
 import './PaymentButton.scss'
-import { useTypedSelector } from '../../store/hooks'
+import { useTypedSelector, useActions } from '../../store/hooks'
 import { useEffect } from 'react'
 import axios from 'axios'
 
@@ -15,11 +15,13 @@ declare global {
 
 const PaymentButton = ({ price }: PaymentButtonProps) => {
 
-    const { currentUser } = useTypedSelector(state => state.user)
+    const { user: {currentUser} } = useTypedSelector(state => state)
+    const { emptyCart } = useActions()
 
     const priceInThousands: number = price * 1000;
     const clientKey: any = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;
     const midtransUrl: any = process.env.REACT_APP_MIDTRANS_SCRIPT_URL;
+    const baseUrl: any = process.env.REACT_APP_MIDTRANS_BASE_URL
 
     useEffect(() => {
 
@@ -40,7 +42,7 @@ const PaymentButton = ({ price }: PaymentButtonProps) => {
             const res = await axios({
                 url: '/',
                 method: 'get',
-                baseURL: 'http://localhost:8080',
+                baseURL: baseUrl,
                 params: {
                     name: currentUser!.displayName,
                     email: currentUser!.email,
@@ -49,7 +51,11 @@ const PaymentButton = ({ price }: PaymentButtonProps) => {
             })
             const { token } = res.data
             window.snap.pay(token, {
-                onSuccess: function(result: any){console.log('success');console.log(result);},
+                onSuccess: function(result: any){
+                    console.log('success');
+                    console.log(result);
+                    emptyCart();
+                },
                 onPending: function(result: any){console.log('pending');console.log(result);},
                 onError: function(result: any){console.log('error');console.log(result);},
                 onClose: function(){console.log('Customer closed the popup without finishing the payment');}

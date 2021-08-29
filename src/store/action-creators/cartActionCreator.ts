@@ -50,3 +50,14 @@ export const clearItemFromCart = (item: ItemType) => {
 
     }
 }
+
+export const emptyCart = () => {
+    return (dispatch: Dispatch) => {
+
+        dispatch({
+            type: 'EMPTY_CART',
+            payload: []
+        })
+
+    }
+}

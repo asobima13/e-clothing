@@ -24,8 +24,14 @@ interface ClearItemFromCart {
     payload: any
 }
 
+interface EmptyCart {
+    type: 'EMPTY_CART',
+    payload: any
+}
+
 export type CartAction =
     ToggleHidden |
     AddItem |
     RemoveItem |
-    ClearItemFromCart
+    ClearItemFromCart |
+    EmptyCart

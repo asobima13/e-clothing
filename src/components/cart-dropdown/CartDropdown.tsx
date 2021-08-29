@@ -4,6 +4,14 @@ import CartItem from '../cart-item/CartItem'
 import { useTypedSelector, useActions } from '../../store/hooks'
 import { useHistory } from 'react-router'
 
+type CartItemType = {
+    id: number,
+    imageUrl: string,
+    name: string,
+    price: number,
+    quantity: number
+}
+
 const CartDropdown = () => {
 
     const { cartItems } = useTypedSelector(state => state.cart);
@@ -20,7 +28,7 @@ const CartDropdown = () => {
             <div className="cart-items">
                 {
                     cartItems.length
-                    ? cartItems.map(cartItem => <CartItem key={cartItem.id} item={cartItem} />)
+                    ? cartItems.map((cartItem: CartItemType) => <CartItem key={cartItem.id} item={cartItem} />)
                     : (<span className="empty-message">Your cart is empty</span>)
                 }
             </div>
