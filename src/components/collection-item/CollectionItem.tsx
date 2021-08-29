@@ -1,6 +1,7 @@
 import './CollectionItem.scss'
 import CustomButton from '../custom-button/CustomButton'
 import { useActions } from '../../store/hooks'
+import { priceWithCommas } from '../../global.utils';
 
 interface CollectionPreviewProps {
     item: {
@@ -20,7 +21,7 @@ const CollectionItem = ({ item }: CollectionPreviewProps) => {
             <div className="image" style={{backgroundImage: `url(${item.imageUrl})`}}></div>
             <div className="collection-footer">
                 <span className="name">{item.name}</span>
-                <span className="price">{item.price}</span>
+                <span className="price">IDR {priceWithCommas(item.price)}K</span>
             </div>
             <CustomButton
                 inverted

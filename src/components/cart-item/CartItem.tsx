@@ -1,4 +1,5 @@
 import './CartItem.scss'
+import { priceWithCommas } from '../../global.utils'
 
 interface CartItemProps {
     item: {
@@ -15,7 +16,7 @@ const CartItem = ({ item: {imageUrl, price, name, quantity} }: CartItemProps) =>
             <img src={imageUrl} alt="" />
             <div className="item-details">
                 <span className="name">{name}</span>
-                <span className="price">{quantity} x ${price}</span>
+                <span className="price">{quantity} x IDR {priceWithCommas(price)}K</span>
             </div>
         </div>
     )

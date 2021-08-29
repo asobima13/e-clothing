@@ -1,5 +1,6 @@
 import './CheckoutItem.scss'
 import { useActions } from '../../store/hooks'
+import { priceWithCommas } from '../../global.utils';
 
 interface CartItemProps {
     cartItem: {
@@ -27,7 +28,7 @@ const CheckoutItem = ({cartItem}: CartItemProps) => {
                 <span className="value">{quantity}</span>
                 <div onClick={() => addItem(cartItem)} className="arrow">&#10095;</div>
             </div>
-            <span className="price">{price}</span>
+            <span className="price">IDR {priceWithCommas(price * 1000)}</span>
             <div onClick={() => clearItemFromCart(cartItem)} className="remove-button">&#10005;</div>
         </div>
     )
